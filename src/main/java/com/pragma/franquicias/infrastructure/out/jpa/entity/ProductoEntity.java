@@ -9,16 +9,19 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 
-@Table(name = "sucursales")
+@Table(name = "productos")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class SucursalEntity {
+public class ProductoEntity {
 
     @Id
     private Long id;
+
     private String nombre;
-    @Column("franquicia_id")
-    private Long franquiciaId;
+    private Integer stock;
+
+    @Column("sucursal_id")
+    private Long sucursalId;
 }
