@@ -1,11 +1,11 @@
 package com.pragma.franquicias.infrastructure.input.rest;
 
 
-import com.pragma.franquicias.application.dto.request.FranquiciaRequestDto;
+import com.pragma.franquicias.application.dto.request.ProductoRequestDto;
 import com.pragma.franquicias.application.dto.request.SucursalRequestDto;
-import com.pragma.franquicias.application.dto.response.FranquiciaResponseDto;
+import com.pragma.franquicias.application.dto.response.ProductoResponseDto;
 import com.pragma.franquicias.application.dto.response.SucursalResponseDto;
-import com.pragma.franquicias.application.handler.IFranquiciaHandler;
+import com.pragma.franquicias.application.handler.IProductoHandler;
 import com.pragma.franquicias.application.handler.ISucursalHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,27 +19,23 @@ import reactor.core.publisher.Mono;
 
 
 @RestController
-@RequestMapping("/sucursal")
+@RequestMapping("/producto")
 @RequiredArgsConstructor
-public class SucursalRestController {
+public class ProductoRestController {
 
-    private final ISucursalHandler sucursalHandler;
+    private final IProductoHandler productoHandler;
 
-    @Operation(summary = "Agregar una nueva sucursal", description = "Crea una nueva sucursal")
+    @Operation(summary = "Agregar un nuevo producto", description = "Crea un nuevo producto")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Sucursal creada exitosamente", content = @Content),
+            @ApiResponse(responseCode = "201", description = "Producto creado exitosamente", content = @Content),
             @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos", content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)
     })
 
-    @PostMapping("/{franquiciaId}")
-    public Mono<ResponseEntity<SucursalResponseDto>> agregarSucursal(
-            @PathVariable Long franquiciaId,
-            @RequestBody SucursalRequestDto sucursalRequestDto) {
-
-        return sucursalHandler.agregarSucursal(franquiciaId, sucursalRequestDto)
-                .map(sucursal -> ResponseEntity.status(HttpStatus.CREATED).body(sucursal));
+    @PostMapping("/{sucursalId}")
+    public Mono<ResponseEntity<ProductoResponseDto>> agregarProducto(@PathVariable Long sucursalId, @RequestBody ProductoRequestDto productoRequestDto) {
+        return productoHandler.agregarProducto(sucursalId, productoRequestDto)
+                .map(productoResponseDto -> ResponseEntity.status(HttpStatus.CREATED).body(productoResponseDto));
     }
-
 
 }
