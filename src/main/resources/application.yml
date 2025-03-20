@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/franquiciadb
+    username: root
+    password: root
+  sql:
+    init:
+      mode: never
+
+appDescription: "MicroServicio Franquicias"
+appVersion: "1.0.0"
