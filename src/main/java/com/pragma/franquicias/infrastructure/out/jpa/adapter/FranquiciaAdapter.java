@@ -21,4 +21,10 @@ public class FranquiciaAdapter implements IFranquiciaPersistencePort {
                 .map(franquiciaEntityMapper::toModel);
 
     }
+
+    @Override
+    public Mono<FranquiciaModelo> buscarPorId(Long id) {
+        return franquiciaRepository.findById(id)
+                .map(franquiciaEntityMapper::toModel);
+    }
 }

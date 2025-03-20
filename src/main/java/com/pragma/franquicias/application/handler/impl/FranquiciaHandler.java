@@ -1,6 +1,7 @@
 package com.pragma.franquicias.application.handler.impl;
 
 import com.pragma.franquicias.application.dto.request.FranquiciaRequestDto;
+import com.pragma.franquicias.application.dto.request.FranquiciaUpdateRequestDto;
 import com.pragma.franquicias.application.dto.response.FranquiciaResponseDto;
 import com.pragma.franquicias.application.handler.IFranquiciaHandler;
 import com.pragma.franquicias.application.mapper.IFranquiciaMapper;
@@ -23,6 +24,13 @@ public class FranquiciaHandler implements IFranquiciaHandler {
 
         return   Mono.just(franquiciaMapper.toModel(franquiciaRequestDto))
                 .flatMap(franquiciaServicePort::agregarFranquicia)
+                .map(franquiciaMapper::toFranquiciaResponse);
+    }
+
+    @Override
+    public Mono<FranquiciaResponseDto> actualizarFranquicia(Long franquiciaId, FranquiciaUpdateRequestDto franquiciaUpdateRequestDto) {
+        return Mono.just(franquiciaMapper.toUpdateModel(franquiciaId, franquiciaUpdateRequestDto))
+                .flatMap(franquiciaServicePort::actualizarFranquicia)
                 .map(franquiciaMapper::toFranquiciaResponse);
     }
 }
