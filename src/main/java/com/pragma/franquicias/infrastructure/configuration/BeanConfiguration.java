@@ -60,6 +60,6 @@ public class BeanConfiguration {
 
     @Bean
     public IProductoServicePort productoServicePort() {
-        return new ProductoUseCase(productoPersistencePort());
+        return new ProductoUseCase(productoPersistencePort(), sucursalPersistencePort());
     }
 }

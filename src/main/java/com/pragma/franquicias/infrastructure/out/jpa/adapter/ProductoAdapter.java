@@ -9,6 +9,7 @@ import com.pragma.franquicias.infrastructure.out.jpa.mapper.ISucursalEntityMappe
 import com.pragma.franquicias.infrastructure.out.jpa.repository.IProductoRepository;
 import com.pragma.franquicias.infrastructure.out.jpa.repository.ISucursalRepository;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -34,5 +35,11 @@ public class ProductoAdapter implements IProductoPersistencePort {
     @Override
     public Mono<Void> eliminarProducto(Long productoId) {
         return productoRepository.deleteById(productoId);
+    }
+
+    @Override
+    public Flux<ProductoModelo> buscarPorSucursalId(Long sucursalId) {
+        return productoRepository.findBySucursalId(sucursalId)
+                .map(productoEntityMapper::toModel);
     }
 }
