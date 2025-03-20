@@ -6,5 +6,7 @@ import reactor.core.publisher.Mono;
 public interface IFranquiciaServicePort {
 
     Mono<FranquiciaModelo>  agregarFranquicia(FranquiciaModelo franquiciaModelo);
+    Mono<FranquiciaModelo>  actualizarFranquicia(FranquiciaModelo franquiciaModelo);
+
 
 }

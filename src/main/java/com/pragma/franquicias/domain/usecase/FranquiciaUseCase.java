@@ -19,4 +19,15 @@ public class FranquiciaUseCase implements IFranquiciaServicePort {
     public Mono<FranquiciaModelo> agregarFranquicia(FranquiciaModelo franquiciaModelo) {
         return franquiciaPersistencePort.agregarFranquicia(franquiciaModelo);
     }
+
+    @Override
+    public Mono<FranquiciaModelo> actualizarFranquicia(FranquiciaModelo franquiciaModelo) {
+        return franquiciaPersistencePort.buscarPorId(franquiciaModelo.getId())
+                .switchIfEmpty(Mono.error(new DomainException("No se encuentra franquicia")))
+                .map(franquicia -> {
+                    franquicia.setNombre(franquiciaModelo.getNombre());
+                    return franquicia;
+                })
+                .flatMap(franquiciaPersistencePort::agregarFranquicia);
+    }
 }
