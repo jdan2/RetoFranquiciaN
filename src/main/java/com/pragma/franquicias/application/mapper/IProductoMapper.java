@@ -1,5 +1,6 @@
 package com.pragma.franquicias.application.mapper;
 
+import com.pragma.franquicias.application.dto.request.ProductoNombreRequestDto;
 import com.pragma.franquicias.application.dto.request.ProductoRequestDto;
 import com.pragma.franquicias.application.dto.request.StockRequestDto;
 import com.pragma.franquicias.application.dto.request.SucursalRequestDto;
@@ -24,5 +25,7 @@ public interface IProductoMapper {
     @Mapping(source = "productoId", target = "id")
     ProductoModelo toModelStack(Long productoId, StockRequestDto stockRequestDto);
     ProductoMaxStockResponseDto toModelMaxStock(ProductoMaxStockModelo productoMaxStockModelo);
+    @Mapping(source = "productoId", target = "id")
+    ProductoModelo toModelNombre(Long productoId, ProductoNombreRequestDto productoNombreRequestDto);
 
 }
