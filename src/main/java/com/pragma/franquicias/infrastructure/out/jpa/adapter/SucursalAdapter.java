@@ -5,6 +5,7 @@ import com.pragma.franquicias.domain.spi.ISucursalPersistencePort;
 import com.pragma.franquicias.infrastructure.out.jpa.mapper.ISucursalEntityMapper;
 import com.pragma.franquicias.infrastructure.out.jpa.repository.ISucursalRepository;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -18,6 +19,12 @@ public class SucursalAdapter implements ISucursalPersistencePort {
     public Mono<SucursalModelo> agregarSucursal(SucursalModelo sucursalModelo) {
         return Mono.just(sucursalEntityMapper.toEntity(sucursalModelo))
                 .flatMap(sucursalRepository::save)
+                .map(sucursalEntityMapper::toModel);
+    }
+
+    @Override
+    public Flux<SucursalModelo> buscarPorFranquiciaId(Long franquiciaId) {
+        return sucursalRepository.findByFranquiciaId(franquiciaId)
                 .map(sucursalEntityMapper::toModel);
     }
 }

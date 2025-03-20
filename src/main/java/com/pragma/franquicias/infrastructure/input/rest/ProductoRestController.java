@@ -3,6 +3,7 @@ package com.pragma.franquicias.infrastructure.input.rest;
 
 import com.pragma.franquicias.application.dto.request.ProductoRequestDto;
 import com.pragma.franquicias.application.dto.request.StockRequestDto;
+import com.pragma.franquicias.application.dto.response.ProductoMaxStockResponseDto;
 import com.pragma.franquicias.application.dto.response.ProductoResponseDto;
 import com.pragma.franquicias.application.handler.IProductoHandler;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -68,5 +70,20 @@ public class ProductoRestController {
             @RequestBody StockRequestDto stockRequestDto) {
         return productoHandler.actualizarStock(productoId, stockRequestDto)
                 .map(productoResponseDto -> ResponseEntity.status(HttpStatus.OK).body(productoResponseDto));
+    }
+
+    @Operation(
+            summary = "Obtener productos con mayor stock por sucursal en una franquicia",
+            description = "Devuelve una lista de productos con el mayor stock por sucursal para una franquicia específica."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de productos con mayor stock por sucursal"),
+            @ApiResponse(responseCode = "400", description = "ID de franquicia inválido"),
+            @ApiResponse(responseCode = "404", description = "Franquicia no encontrada"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    @GetMapping("/{franquiciaId}")
+    public Flux<ProductoMaxStockResponseDto> obtenerProductosMaxStock(@PathVariable Long franquiciaId) {
+        return productoHandler.obtenerProductoMaxStockPorSucursal(franquiciaId);
     }
 }
