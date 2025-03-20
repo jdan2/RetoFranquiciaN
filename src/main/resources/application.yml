@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   r2dbc:
-    url: r2dbc:mysql://localhost:3306/franquiciadb
+    url: r2dbc:mysql://127.0.0.1:3306/franquiciadb
     username: root
     password: root
   sql:
