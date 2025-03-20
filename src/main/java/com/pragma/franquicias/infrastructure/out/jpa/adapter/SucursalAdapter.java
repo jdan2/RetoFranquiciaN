@@ -27,4 +27,10 @@ public class SucursalAdapter implements ISucursalPersistencePort {
         return sucursalRepository.findByFranquiciaId(franquiciaId)
                 .map(sucursalEntityMapper::toModel);
     }
+
+    @Override
+    public Mono<SucursalModelo> buscarPorId(Long sucursalId) {
+        return sucursalRepository.findById(sucursalId)
+                .map(sucursalEntityMapper::toModel);
+    }
 }
