@@ -1,6 +1,7 @@
 package com.pragma.franquicias.application.handler.impl;
 
 import com.pragma.franquicias.application.dto.request.ProductoRequestDto;
+import com.pragma.franquicias.application.dto.request.StockRequestDto;
 import com.pragma.franquicias.application.dto.request.SucursalRequestDto;
 import com.pragma.franquicias.application.dto.response.ProductoResponseDto;
 import com.pragma.franquicias.application.dto.response.SucursalResponseDto;
@@ -34,5 +35,12 @@ public class ProductoHandler implements IProductoHandler {
     @Override
     public Mono<Void> eliminarProducto(Long productoId) {
         return productoServicePort.eliminarProducto(productoId);
+    }
+
+    @Override
+    public Mono<ProductoResponseDto> actualizarStock(Long productoId, StockRequestDto stockRequestDto) {
+        return Mono.just(productoMapper.toModelStack(productoId, stockRequestDto))
+                .flatMap(productoServicePort::actualizarProducto)
+                .map(productoMapper::toResponse);
     }
 }

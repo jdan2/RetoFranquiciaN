@@ -8,5 +8,6 @@ public interface IProductoServicePort {
 
     Mono<ProductoModelo>  agregarProducto(ProductoModelo productoModelo);
     Mono<Void>  eliminarProducto(Long productoId);
+    Mono<ProductoModelo>  actualizarProducto(ProductoModelo productoModelo);
 
 }

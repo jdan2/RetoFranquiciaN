@@ -24,6 +24,20 @@ public class ProductoUseCase implements IProductoServicePort {
     }
 
     @Override
+    public Mono<ProductoModelo> actualizarProducto(ProductoModelo productoModelo) {
+        return productoPersistencePort.buscarProductoPorId(productoModelo.getId())
+                .switchIfEmpty(Mono.error(new DomainException(PRODUCTO_NO_ENCONTRADO)))
+
+                .map(producto -> {
+                    producto.setStock(productoModelo.getStock());
+                    return producto;
+                })
+                .flatMap(productoPersistencePort::agregarProducto);
+
+
+    }
+
+    @Override
     public Mono<Void> eliminarProducto(Long productoId) {
         return productoPersistencePort.buscarProductoPorId(productoId)
                 .switchIfEmpty(Mono.error(new DomainException(PRODUCTO_NO_ENCONTRADO)))
