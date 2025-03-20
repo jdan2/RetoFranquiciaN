@@ -7,5 +7,6 @@ import reactor.core.publisher.Mono;
 public interface ISucursalServicePort {
 
     Mono<SucursalModelo>  agregarSucursal(SucursalModelo sucursalModelo);
+    Mono<SucursalModelo>  actualizarFranquicia(SucursalModelo franquiciaModelo);
 
 }
