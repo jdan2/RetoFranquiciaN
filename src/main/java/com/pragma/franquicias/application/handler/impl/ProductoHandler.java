@@ -30,4 +30,9 @@ public class ProductoHandler implements IProductoHandler {
                 .flatMap(productoServicePort::agregarProducto)
                 .map(productoMapper::toResponse);
     }
+
+    @Override
+    public Mono<Void> eliminarProducto(Long productoId) {
+        return productoServicePort.eliminarProducto(productoId);
+    }
 }

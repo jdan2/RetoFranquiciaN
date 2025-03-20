@@ -6,4 +6,6 @@ import reactor.core.publisher.Mono;
 
 public interface IProductoPersistencePort {
     Mono<ProductoModelo> agregarProducto(ProductoModelo productoModelo);
+    Mono<ProductoModelo> buscarProductoPorId(Long productoId);
+    Mono<Void> eliminarProducto(Long productoId);
 }

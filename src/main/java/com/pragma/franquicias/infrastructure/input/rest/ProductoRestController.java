@@ -38,4 +38,20 @@ public class ProductoRestController {
                 .map(productoResponseDto -> ResponseEntity.status(HttpStatus.CREATED).body(productoResponseDto));
     }
 
+
+
+    @Operation(
+            summary = "Eliminar un producto",
+            description = "Elimina un producto de una sucursal utilizando su ID."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Producto eliminado exitosamente"),
+            @ApiResponse(responseCode = "404", description = "Producto no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+
+    @DeleteMapping("/{productoId}")
+    public Mono<Void> eliminarProducto(@PathVariable Long productoId) {
+        return productoHandler.eliminarProducto(productoId);
+    }
 }

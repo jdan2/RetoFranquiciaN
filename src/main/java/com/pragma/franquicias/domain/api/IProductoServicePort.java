@@ -7,5 +7,6 @@ import reactor.core.publisher.Mono;
 public interface IProductoServicePort {
 
     Mono<ProductoModelo>  agregarProducto(ProductoModelo productoModelo);
+    Mono<Void>  eliminarProducto(Long productoId);
 
 }
