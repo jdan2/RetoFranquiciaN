@@ -1,5 +1,6 @@
 package com.pragma.franquicias.application.handler.impl;
 
+import com.pragma.franquicias.application.dto.request.ProductoNombreRequestDto;
 import com.pragma.franquicias.application.dto.request.ProductoRequestDto;
 import com.pragma.franquicias.application.dto.request.StockRequestDto;
 import com.pragma.franquicias.application.dto.request.SucursalRequestDto;
@@ -50,5 +51,12 @@ public class ProductoHandler implements IProductoHandler {
     public Flux<ProductoMaxStockResponseDto> obtenerProductoMaxStockPorSucursal(Long franquiciaId) {
         return productoServicePort.obtenerProductoMaxStockPorSucursal(franquiciaId)
                 .map(productoMapper::toModelMaxStock);
+    }
+
+    @Override
+    public Mono<ProductoResponseDto> actualizarNombre(Long productoId, ProductoNombreRequestDto productoNombreRequestDto) {
+        return  Mono.just(productoMapper.toModelNombre(productoId, productoNombreRequestDto))
+                .flatMap(productoServicePort::actualizarNombreProducto)
+                .map(productoMapper::toResponse);
     }
 }

@@ -12,6 +12,7 @@ public interface IProductoServicePort {
     Mono<Void>  eliminarProducto(Long productoId);
     Mono<ProductoModelo>  actualizarProducto(ProductoModelo productoModelo);
     Flux<ProductoMaxStockModelo> obtenerProductoMaxStockPorSucursal(Long franquiciaId);
+    Mono<ProductoModelo>  actualizarNombreProducto(ProductoModelo productoModelo);
 
 
 }

@@ -1,6 +1,7 @@
 package com.pragma.franquicias.infrastructure.input.rest;
 
 
+import com.pragma.franquicias.application.dto.request.ProductoNombreRequestDto;
 import com.pragma.franquicias.application.dto.request.ProductoRequestDto;
 import com.pragma.franquicias.application.dto.request.StockRequestDto;
 import com.pragma.franquicias.application.dto.response.ProductoMaxStockResponseDto;
@@ -85,5 +86,23 @@ public class ProductoRestController {
     @GetMapping("/{franquiciaId}")
     public Flux<ProductoMaxStockResponseDto> obtenerProductosMaxStock(@PathVariable Long franquiciaId) {
         return productoHandler.obtenerProductoMaxStockPorSucursal(franquiciaId);
+    }
+
+    @Operation(
+            summary = "Modificar nombre de un producto",
+            description = "Permite actualizar el nombre de un producto existente"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "nombre actualizado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos"),
+            @ApiResponse(responseCode = "404", description = "Producto no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    @PatchMapping("/nombre/{productoId}")
+    public  Mono<ResponseEntity<ProductoResponseDto>> actualizarNombre(
+            @PathVariable Long productoId,
+            @RequestBody ProductoNombreRequestDto productoNombreRequestDto) {
+        return productoHandler.actualizarNombre(productoId, productoNombreRequestDto)
+                .map(franquiciaResponseDto -> ResponseEntity.status(HttpStatus.OK).body(franquiciaResponseDto));
     }
 }

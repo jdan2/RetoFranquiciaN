@@ -1,5 +1,6 @@
 package com.pragma.franquicias.application.handler;
 
+import com.pragma.franquicias.application.dto.request.ProductoNombreRequestDto;
 import com.pragma.franquicias.application.dto.request.ProductoRequestDto;
 import com.pragma.franquicias.application.dto.request.StockRequestDto;
 import com.pragma.franquicias.application.dto.response.ProductoMaxStockResponseDto;
@@ -13,6 +14,7 @@ public interface IProductoHandler {
     Mono<Void>  eliminarProducto(Long productoId);
     Mono<ProductoResponseDto>  actualizarStock(Long productoId, StockRequestDto stockRequestDto );
     Flux<ProductoMaxStockResponseDto> obtenerProductoMaxStockPorSucursal(Long franquiciaId);
+    Mono<ProductoResponseDto>  actualizarNombre(Long productoId, ProductoNombreRequestDto productoNombreRequestDto );
 
 
 }

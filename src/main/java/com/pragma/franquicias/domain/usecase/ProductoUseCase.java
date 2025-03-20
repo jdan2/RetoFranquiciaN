@@ -67,4 +67,15 @@ public class ProductoUseCase implements IProductoServicePort {
                 .flatMap(producto -> productoPersistencePort.eliminarProducto(producto.getId()))
                 .then(Mono.empty());
     }
+
+    @Override
+    public Mono<ProductoModelo> actualizarNombreProducto(ProductoModelo productoModelo) {
+        return productoPersistencePort.buscarProductoPorId(productoModelo.getId())
+                .switchIfEmpty(Mono.error(new DomainException(PRODUCTO_NO_ENCONTRADO)))
+                .map(producto -> {
+                    producto.setNombre(productoModelo.getNombre());
+                    return producto;
+                })
+                .flatMap(productoPersistencePort::agregarProducto);
+    }
 }
